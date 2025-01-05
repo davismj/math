@@ -1,11 +1,27 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const pages = await Astro.glob('./**/*');
+const books = new Set;
+const articles = new Map;
+for (let { file, url } of pages) {
+	// parse the book and the article
+	const match = /pages\/(.*)\/(.*)\.astro$/.exec(file)
+	// add to sets
+	if (match) {
+		const [_, book, article] = match;
+		books.add(book);
+		articles.set(book, [[...articles.get(book) ?? []], { article, url }]);
+	}
+}
 ---
 
 <Layout>
-	<Welcome />
+	{Array.from(books).map(book => (<>
+		<h2>{book}</h2>
+		<ol>
+			{Array.from(articles.get(book)).map(({ article, url }) => (
+				<a href={url}>{article}</a>
+			))}
+		</ol>
+	</>))}
 </Layout>

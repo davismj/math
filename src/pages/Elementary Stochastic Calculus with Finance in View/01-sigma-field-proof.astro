@@ -1,0 +1,44 @@
+---
+import Math from "../../components/math.astro";
+---
+<style>
+    article {
+        max-width: 50rem;
+    }
+    .question::before {
+        counter-increment: question;
+        content: "Question " counter(question) ". ";
+        font-weight: bold;
+    }
+    .proof::before {
+        content: "Proof.";
+        font-style: italic;
+    }
+    .proof::after {
+        content: "";
+        display: block;
+        height: 0.5rem;
+        width: 0.5rem;
+        border: 1px solid black;
+        margin-top: -1rem;
+        float: right;
+    }
+</style>
+<article>
+    <Math class="question" is:raw>
+        Show that for discrete random variable $Y$ with countable distinct values $y_i$
+
+        \[ \mathcal{F} = \{ \bigcup\limits_{i \in I \subseteq \mathbb{N}} { A_i } \} = \{ \bigcup\limits_{i \in I \subseteq \mathbb{N}} { \{ \omega : Y(\omega) = y_i \} } \} \]
+        
+        forms the $\sigma$-field $\sigma(Y)$.        
+    </Math>
+    <Math class="proof" is:raw>
+        $I = \emptyset$ yields $\emptyset \in \mathcal{F}$.
+
+        Since the values of $Y$ are countable, $I = \mathbb{N}$ yields $\Omega \in \mathcal{F}$.
+
+        If $B_1,... \in \mathcal{F}$, then $B_k = \bigcup_{i \in I_k} A_i$. Since $\bigcup  I_k \subseteq \mathbb{N}$ and $\bigcap I_k \subseteq \mathbb{N}$, both $\bigcup B_k \in \mathcal{F}$ and $\bigcap B_k \in \mathcal{F}$.
+
+        Finally, if $B \in \mathcal{F}$, then $B = \bigcup_{i \in I} A_i$ and $B^c = \bigcap_{i \in I^c} A_i$. Since $I^c \subseteq \mathbb{N}$, $B^c \in \mathcal{F}$.
+    </Math>
+</article>

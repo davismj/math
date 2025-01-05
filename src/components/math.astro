@@ -1,0 +1,13 @@
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/ams']},
+        tex: { 
+            inlineMath: [['$', '$']],
+            packages: {'[+]': ['ams']}
+        }
+    };
+</script>
+<div {...Astro.props} style="margin-bottom: 1rem;">
+    <div style="white-space: pre-line"><slot></slot></div>
+</div>
